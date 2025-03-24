@@ -299,8 +299,6 @@
 
     <script>
         let isFlipping = false;
-        let clickTimeout = null;
-        let clickCount = 0;
 
         function createTeams() {
             const playerNamesText = document.getElementById('playerNames').value.trim();
@@ -318,27 +316,15 @@
                 return;
             }
 
-            // Check for Ashish
-            const ashishIndex = players.findIndex(name => 
-                name.toLowerCase() === 'ashish');
-            let commonPlayer = null;
-
-            // If Ashish exists and we need a common player, make Ashish the common player
-            if (players.length % 2 !== 0) {
-                if (ashishIndex !== -1) {
-                    commonPlayer = players.splice(ashishIndex, 1)[0];
-                }
-            }
-
-            // Shuffle remaining players
+            // Shuffle players
             players = shuffleArray(players);
 
             const midPoint = Math.floor(players.length / 2);
             const team1 = players.slice(0, midPoint);
             const team2 = players.slice(midPoint);
             
-            // If we need a common player but didn't find Ashish
-            if (players.length % 2 !== 0 && !commonPlayer) {
+            let commonPlayer = null;
+            if (players.length % 2 !== 0) {
                 commonPlayer = team2.pop();
             }
 
@@ -369,31 +355,13 @@
 
         function flipCoin() {
             if (isFlipping) return;
-            
-            clickCount++;
-            
-            if (clickTimeout) {
-                // Double click detected
-                clearTimeout(clickTimeout);
-                clickTimeout = null;
-                handleCoinFlip(true); // Force heads for double click
-            } else {
-                // Wait to see if it's a single or double click
-                clickTimeout = setTimeout(() => {
-                    clickTimeout = null;
-                    if (clickCount === 1) {
-                        handleCoinFlip(false); // Force tails for single click
-                    }
-                    clickCount = 0;
-                }, 300); // 300ms window for double click
-            }
-        }
-
-        function handleCoinFlip(isHeads) {
             isFlipping = true;
+
             const coin = document.getElementById('coin');
             const result = document.getElementById('tossResult');
+            const random = Math.random();
             const rotations = 5 + Math.floor(Math.random() * 5);
+            const isHeads = random < 0.5;
 
             coin.style.transition = 'transform 3s ease-out';
             coin.style.transform = `rotateY(${rotations * 360 + (isHeads ? 0 : 180)}deg)`;
