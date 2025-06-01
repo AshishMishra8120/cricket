@@ -3,406 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exatip Cricket Team Organizer</title>
+    <title>Button Testing Page</title>
     <style>
-        :root {
-            --primary-color: #1a237e;
-            --secondary-color: #0d47a1;
-            --accent-color: #2979ff;
-            --success-color: #00c853;
-            --text-color: #ffffff;
-            --shadow-color: rgba(0, 0, 0, 0.15);
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --hover-bg: rgba(255, 255, 255, 0.12);
-            --border-radius: 16px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
         body {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            min-height: 100vh;
-            padding: 2rem;
-            color: var(--text-color);
-            line-height: 1.6;
-            background-attachment: fixed;
-        }
-
-        .container {
-            max-width: 1000px;
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 2.5rem;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 8px 32px var(--shadow-color);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
         }
-
+        
         h1 {
             text-align: center;
-            margin-bottom: 2.5rem;
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #fff, #e3f2fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            letter-spacing: 1px;
+            margin-bottom: 30px;
         }
-
-        .input-section {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 2rem;
-            box-shadow: inset 0 2px 4px var(--shadow-color);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        
+        .test-section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
         }
-
-        textarea {
-            width: 100%;
-            padding: 1.2rem;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: calc(var(--border-radius) - 4px);
-            background: rgba(0, 0, 0, 0.2);
-            color: var(--text-color);
-            font-size: 1.1rem;
-            min-height: 120px;
-            margin-bottom: 1.5rem;
-            resize: vertical;
-            transition: all 0.3s ease;
+        
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
         }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(41, 121, 255, 0.2);
-            background: rgba(0, 0, 0, 0.25);
-        }
-
-        textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        button {
-            padding: 14px 28px;
-            background: var(--accent-color);
-            border: none;
-            border-radius: calc(var(--border-radius) - 8px);
+        
+        button, a.button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
             color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            box-shadow: 0 4px 15px rgba(41, 121, 255, 0.3);
+            text-decoration: none;
+            display: inline-block;
         }
-
-        button:hover {
-            background: #2962ff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(41, 121, 255, 0.4);
+        
+        button:hover, a.button:hover {
+            background-color: #45a049;
         }
-
-        button:active {
-            transform: translateY(0);
+        
+        button.error {
+            background-color: #f44336;
         }
-
-        .teams-display {
+        
+        button.warning {
+            background-color: #ff9800;
+        }
+        
+        #overlay {
             display: none;
-            gap: 2rem;
-            margin-top: 2.5rem;
-        }
-
-        .team {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            margin: 1rem 0;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .team:hover {
-            transform: translateY(-5px);
-        }
-
-        .team h2 {
-            color: #fff;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.8rem;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            font-size: 1.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .player-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .player-list li {
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: background-color 0.3s ease;
-            border-radius: 8px;
-        }
-
-        .player-list li:hover {
-            background: var(--hover-bg);
-        }
-
-        .common-player {
-            background: linear-gradient(45deg, #ff6f00, #ff9100);
-            padding: 1.2rem;
-            border-radius: var(--border-radius);
-            margin-top: 1.5rem;
-            text-align: center;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 145, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .coin-section {
-            display: none;
-            text-align: center;
-            margin-top: 2.5rem;
-            padding: 2.5rem;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .coin {
-            width: 200px;
-            height: 200px;
-            margin: 2.5rem auto;
-            position: relative;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transition: transform 3s ease-out;
-        }
-
-        .coin-heads, .coin-tails {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ffd700, #ffab00);
-            box-shadow: 
-                0 0 30px rgba(255, 215, 0, 0.5),
-                inset 0 0 20px rgba(255, 255, 255, 0.5);
-            border: 8px solid #fff;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
         }
-
-        .coin-tails {
-            transform: rotateY(180deg);
-            background: linear-gradient(45deg, #ffab00, #ffd700);
-        }
-
-        #tossResult {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-top: 1.5rem;
-            padding: 1.2rem;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-
-            .container {
-                padding: 1.5rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            .coin {
-                width: 150px;
-                height: 150px;
-            }
-
-            button {
-                width: 100%;
-            }
-        }
-
-        /* Glass morphism effect for cards */
-        .team, .input-section, .coin-section {
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
+        
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Cricket Team Organizer</h1>
-        
-        <div class="input-section">
-            <textarea id="playerNames" placeholder="Enter player names separated by commas (e.g., John, Mike, Steve)"></textarea>
-            <button onclick="createTeams()">Create Teams</button>
-        </div>
-
-        <div class="teams-display" id="teamsDisplay">
-            <div class="team" id="team1">
-                <h2>Team 1</h2>
-                <ul class="player-list" id="team1Players"></ul>
-            </div>
-            <div class="team" id="team2">
-                <h2>Team 2</h2>
-                <ul class="player-list" id="team2Players"></ul>
-            </div>
-            <div id="commonPlayer"></div>
-            <button onclick="showCoinToss()">Proceed to Toss</button>
-        </div>
-
-        <div class="coin-section" id="coinSection">
-            <h2>Coin Toss</h2>
-            <div class="coin" onclick="flipCoin()" id="coin">
-                <div class="coin-heads">H</div>
-                <div class="coin-tails">T</div>
-            </div>
-            <div id="tossResult"></div>
+    <h1>Button Testing Page</h1>
+    <p>This page contains various buttons with different types of failures to test your crawler's button detection capabilities.</p>
+    
+    <div class="test-section">
+        <h2>1. Navigation Errors</h2>
+        <div class="button-container">
+            <a href="/non-existent-page" class="button">404 Page Link</a>
+            <a href="/server-error-simulation" class="button error">500 Error Link</a>
+            <a href="https://non-existent-domain-123456789.com" class="button error">Non-existent Domain</a>
+            <button onclick="window.location.href='/broken-page'">JS Navigation to 404</button>
+            <button onclick="navigateTo('/another-404-page')">Function Navigation to 404</button>
         </div>
     </div>
-
+    
+    <div class="test-section">
+        <h2>2. JavaScript Errors</h2>
+        <div class="button-container">
+            <button onclick="undefinedFunction()">Call Undefined Function</button>
+            <button onclick="document.querySelector('#non-existent-element').innerHTML = 'Test'">Access Non-existent Element</button>
+            <button onclick="throw new Error('Deliberate error')">Throw Deliberate Error</button>
+            <button onclick="JSON.parse('invalid json')">Parse Invalid JSON</button>
+            <button onclick="x = {}; x.y.z = 1;">Null Reference Error</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Dialog Issues</h2>
+        <div class="button-container">
+            <button onclick="alert('This is an alert')">Show Alert</button>
+            <button onclick="if(confirm('Confirm this action?')) { undefinedFunction(); }">Confirm with Error</button>
+            <button onclick="var input = prompt('Enter something:'); processPromptInput(input);">Prompt with Error</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Network Request Failures</h2>
+        <div class="button-container">
+            <button onclick="fetchNonExistentAPI()">Fetch Non-existent API</button>
+            <button onclick="loadScript('/non-existent-script.js')">Load Non-existent Script</button>
+            <button onclick="fetch('/api/error').then(r => r.json())">Fetch API Error</button>
+            <button onclick="$.ajax({url: '/api/timeout'})">Ajax Timeout</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>5. DOM Manipulation Issues</h2>
+        <div class="button-container">
+            <button onclick="document.body.innerHTML = ''">Clear Page Content</button>
+            <button onclick="removeAllButtons()">Remove All Buttons</button>
+            <button onclick="document.body.style.display = 'none'">Hide Body</button>
+            <button onclick="createInfiniteNodes()">Create Infinite DOM Nodes</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>6. Performance Issues</h2>
+        <div class="button-container">
+            <button onclick="blockUIThread()">Block UI Thread</button>
+            <button onclick="createMemoryLeak()">Create Memory Leak</button>
+            <button onclick="startInfiniteLoop()">Start Infinite Loop</button>
+            <button onclick="loadHeavyResources()">Load Heavy Resources</button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>7. Visibility and Interaction Issues</h2>
+        <div class="button-container">
+            <button onclick="this.style.display = 'none'">Hide Self</button>
+            <button onclick="showOverlay()">Show Blocking Overlay</button>
+            <button onclick="this.disabled = true">Disable Self</button>
+            <button onclick="moveOffscreen()">Move Button Offscreen</button>
+            <div style="position: relative; height: 40px; overflow: hidden;">
+                <button style="position: absolute; left: -9999px;" onclick="alert('Hidden button clicked')">Invisible Button</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>8. Redirects and URL Issues</h2>
+        <div class="button-container">
+            <button onclick="window.location.href = 'http://' + window.location.hostname + ':invalid-port'">Invalid Port</button>
+            <button onclick="window.location.href = 'malformed://url'">Malformed URL Scheme</button>
+            <button onclick="window.location.href = window.location.href + '#' + Array(1000).join('fragment')">Extremely Long Fragment</button>
+        </div>
+    </div>
+    
+    <div id="overlay" onclick="this.style.display = 'none'"></div>
+    
     <script>
-        let isFlipping = false;
-        let clickTimeout = null;
-        let clickCount = 0;
-
-        function createTeams() {
-            const playerNamesText = document.getElementById('playerNames').value.trim();
-            if (!playerNamesText) {
-                alert('Please enter player names');
-                return;
-            }
-
-            let players = playerNamesText.split(',')
-                .map(name => name.trim())
-                .filter(name => name.length > 0);
-
-            if (players.length < 2) {
-                alert('Please enter at least 2 players');
-                return;
-            }
-
-            // Check for Ashish
-            const ashishIndex = players.findIndex(name => 
-                name.toLowerCase() === 'ashish');
-            let commonPlayer = null;
-
-            // If Ashish exists and we need a common player, make Ashish the common player
-            if (players.length % 2 !== 0) {
-                if (ashishIndex !== -1) {
-                    commonPlayer = players.splice(ashishIndex, 1)[0];
-                }
-            }
-
-            // Shuffle remaining players
-            players = shuffleArray(players);
-
-            const midPoint = Math.floor(players.length / 2);
-            const team1 = players.slice(0, midPoint);
-            const team2 = players.slice(midPoint);
-            
-            // If we need a common player but didn't find Ashish
-            if (players.length % 2 !== 0 && !commonPlayer) {
-                commonPlayer = team2.pop();
-            }
-
-            // Display teams
-            document.getElementById('team1Players').innerHTML = team1
-                .map(player => `<li>${player}</li>`)
-                .join('');
-            document.getElementById('team2Players').innerHTML = team2
-                .map(player => `<li>${player}</li>`)
-                .join('');
-            document.getElementById('commonPlayer').innerHTML = commonPlayer ? 
-                `<div class="common-player">Common Player: ${commonPlayer}</div>` : '';
-            
-            document.getElementById('teamsDisplay').style.display = 'block';
+        // Helper functions for button actions
+        function navigateTo(url) {
+            window.location.href = url;
         }
-
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+        
+        function processPromptInput(input) {
+            // This will cause an error if input is null or undefined
+            return input.toLowerCase();
+        }
+        
+        function fetchNonExistentAPI() {
+            fetch('/api/non-existent')
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+        
+        function loadScript(src) {
+            const script = document.createElement('script');
+            script.src = src;
+            script.onerror = function() {
+                console.error('Failed to load script:', src);
+            };
+            document.body.appendChild(script);
+        }
+        
+        function removeAllButtons() {
+            const buttons = document.querySelectorAll('button, a.button');
+            buttons.forEach(button => button.parentNode.removeChild(button));
+        }
+        
+        function createInfiniteNodes() {
+            function addNodes() {
+                const div = document.createElement('div');
+                div.innerHTML = Array(100).fill('<span>node</span>').join('');
+                document.body.appendChild(div);
+                setTimeout(addNodes, 10);
             }
-            return array;
+            addNodes();
         }
-
-        function showCoinToss() {
-            document.getElementById('coinSection').style.display = 'block';
-        }
-
-        function flipCoin() {
-            if (isFlipping) return;
-            
-            clickCount++;
-            
-            if (clickTimeout) {
-                // Double click detected
-                clearTimeout(clickTimeout);
-                clickTimeout = null;
-                handleCoinFlip(true); // Force heads for double click
-            } else {
-                // Wait to see if it's a single or double click
-                clickTimeout = setTimeout(() => {
-                    clickTimeout = null;
-                    if (clickCount === 1) {
-                        handleCoinFlip(false); // Force tails for single click
-                    }
-                    clickCount = 0;
-                }, 300); // 300ms window for double click
+        
+        function blockUIThread() {
+            const start = Date.now();
+            while (Date.now() - start < 5000) {
+                // Block for 5 seconds
             }
         }
-
-        function handleCoinFlip(isHeads) {
-            isFlipping = true;
-            const coin = document.getElementById('coin');
-            const result = document.getElementById('tossResult');
-            const rotations = 5 + Math.floor(Math.random() * 5);
-
-            coin.style.transition = 'transform 3s ease-out';
-            coin.style.transform = `rotateY(${rotations * 360 + (isHeads ? 0 : 180)}deg)`;
-
-            setTimeout(() => {
-                result.innerHTML = `<h3>It's ${isHeads ? 'Heads' : 'Tails'}!</h3>`;
-                isFlipping = false;
-            }, 3000);
+        
+        function createMemoryLeak() {
+            window.leakedArray = window.leakedArray || [];
+            function addToLeak() {
+                window.leakedArray.push(new Array(1000000).fill('memory leak'));
+                setTimeout(addToLeak, 100);
+            }
+            addToLeak();
+        }
+        
+        function startInfiniteLoop() {
+            setTimeout(function() {
+                let counter = 0;
+                setInterval(function() {
+                    counter++;
+                    console.log('Infinite interval:', counter);
+                }, 10);
+            }, 1000);
+        }
+        
+        function loadHeavyResources() {
+            for (let i = 0; i < 10; i++) {
+                const img = new Image();
+                img.src = `https://picsum.photos/3000/2000?random=${i}`;
+                document.body.appendChild(img);
+            }
+        }
+        
+        function showOverlay() {
+            document.getElementById('overlay').style.display = 'block';
+        }
+        
+        function moveOffscreen() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.style.position = 'absolute';
+                button.style.left = '-9999px';
+            });
         }
     </script>
 </body>
-</html> 
+</html>
