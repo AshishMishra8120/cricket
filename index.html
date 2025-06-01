@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Testing Page</title>
+    <title>Cricket Team Organizer - Testing Buttons</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,184 +71,88 @@
             border-radius: 3px;
             font-family: monospace;
         }
+        
+        .broken-button {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <h1>Button Testing Page</h1>
-    <p>This page contains various buttons with different types of failures to test your crawler's button detection capabilities.</p>
-    
-    <div class="test-section">
-        <h2>1. Navigation Errors</h2>
-        <div class="button-container">
-            <a href="/non-existent-page" class="button">404 Page Link</a>
-            <a href="/server-error-simulation" class="button error">500 Error Link</a>
-            <a href="https://non-existent-domain-123456789.com" class="button error">Non-existent Domain</a>
-            <button onclick="window.location.href='/broken-page'">JS Navigation to 404</button>
-            <button onclick="navigateTo('/another-404-page')">Function Navigation to 404</button>
+    <div class="container">
+        <h1>Cricket Team Organizer</h1>
+        
+        <!-- Regular buttons (should work fine) -->
+        <div class="input-section">
+            <textarea id="playerNames" placeholder="Enter player names separated by commas (e.g., John, Mike, Steve)"></textarea>
+            <button onclick="createTeams()">Create Teams</button>
+        </div>
+        
+        <!-- TEST SECTION: Broken Buttons -->
+        <div style="margin-top: 50px; padding: 20px; border: 2px dashed red;">
+            <h2>Test Buttons (For Crawler Testing)</h2>
+            
+            <!-- Button that causes JavaScript error -->
+            <button class="broken-button" onclick="undefinedFunction()">Button with Undefined Function</button>
+            
+            <!-- Button that navigates to non-existent page -->
+            <button class="broken-button" onclick="window.location.href='/non-existent-page'">Navigate to 404</button>
+            
+            <!-- Link with missing href -->
+            <a href="#" class="broken-button">Link with Empty Href</a>
+            
+            <!-- Link to external broken domain -->
+            <a href="https://non-existent-domain-123456789.com" class="broken-button">Link to Non-existent Domain</a>
+            
+            <!-- Button that throws explicit error -->
+            <button class="broken-button" onclick="throw new Error('Deliberate error')">Throw Error Button</button>
+            
+            <!-- Button that creates infinite loop -->
+            <button class="broken-button" onclick="startInfiniteLoop()">Infinite Loop Button</button>
+            
+            <!-- Button that removes itself -->
+            <button class="broken-button" id="self-removing" onclick="this.remove()">Self-removing Button</button>
+            
+            <!-- Button with malformed URL -->
+            <button class="broken-button" onclick="window.location.href='http:///invalid-url'">Malformed URL Button</button>
+        </div>
+
+        <!-- Rest of your content -->
+        <div class="teams-display" id="teamsDisplay">
+            <!-- ... -->
+        </div>
+        
+        <div class="coin-section" id="coinSection">
+            <!-- ... -->
         </div>
     </div>
-    
-    <div class="test-section">
-        <h2>2. JavaScript Errors</h2>
-        <div class="button-container">
-            <button onclick="undefinedFunction()">Call Undefined Function</button>
-            <button onclick="document.querySelector('#non-existent-element').innerHTML = 'Test'">Access Non-existent Element</button>
-            <button onclick="throw new Error('Deliberate error')">Throw Deliberate Error</button>
-            <button onclick="JSON.parse('invalid json')">Parse Invalid JSON</button>
-            <button onclick="x = {}; x.y.z = 1;">Null Reference Error</button>
-        </div>
-    </div>
-    
-    <div class="test-section">
-        <h2>3. Dialog Issues</h2>
-        <div class="button-container">
-            <button onclick="alert('This is an alert')">Show Alert</button>
-            <button onclick="if(confirm('Confirm this action?')) { undefinedFunction(); }">Confirm with Error</button>
-            <button onclick="var input = prompt('Enter something:'); processPromptInput(input);">Prompt with Error</button>
-        </div>
-    </div>
-    
-    <div class="test-section">
-        <h2>4. Network Request Failures</h2>
-        <div class="button-container">
-            <button onclick="fetchNonExistentAPI()">Fetch Non-existent API</button>
-            <button onclick="loadScript('/non-existent-script.js')">Load Non-existent Script</button>
-            <button onclick="fetch('/api/error').then(r => r.json())">Fetch API Error</button>
-            <button onclick="$.ajax({url: '/api/timeout'})">Ajax Timeout</button>
-        </div>
-    </div>
-    
-    <div class="test-section">
-        <h2>5. DOM Manipulation Issues</h2>
-        <div class="button-container">
-            <button onclick="document.body.innerHTML = ''">Clear Page Content</button>
-            <button onclick="removeAllButtons()">Remove All Buttons</button>
-            <button onclick="document.body.style.display = 'none'">Hide Body</button>
-            <button onclick="createInfiniteNodes()">Create Infinite DOM Nodes</button>
-        </div>
-    </div>
-    
-    <div class="test-section">
-        <h2>6. Performance Issues</h2>
-        <div class="button-container">
-            <button onclick="blockUIThread()">Block UI Thread</button>
-            <button onclick="createMemoryLeak()">Create Memory Leak</button>
-            <button onclick="startInfiniteLoop()">Start Infinite Loop</button>
-            <button onclick="loadHeavyResources()">Load Heavy Resources</button>
-        </div>
-    </div>
-    
-    <div class="test-section">
-        <h2>7. Visibility and Interaction Issues</h2>
-        <div class="button-container">
-            <button onclick="this.style.display = 'none'">Hide Self</button>
-            <button onclick="showOverlay()">Show Blocking Overlay</button>
-            <button onclick="this.disabled = true">Disable Self</button>
-            <button onclick="moveOffscreen()">Move Button Offscreen</button>
-            <div style="position: relative; height: 40px; overflow: hidden;">
-                <button style="position: absolute; left: -9999px;" onclick="alert('Hidden button clicked')">Invisible Button</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="test-section">
-        <h2>8. Redirects and URL Issues</h2>
-        <div class="button-container">
-            <button onclick="window.location.href = 'http://' + window.location.hostname + ':invalid-port'">Invalid Port</button>
-            <button onclick="window.location.href = 'malformed://url'">Malformed URL Scheme</button>
-            <button onclick="window.location.href = window.location.href + '#' + Array(1000).join('fragment')">Extremely Long Fragment</button>
-        </div>
-    </div>
-    
-    <div id="overlay" onclick="this.style.display = 'none'"></div>
-    
+
     <script>
-        // Helper functions for button actions
-        function navigateTo(url) {
-            window.location.href = url;
-        }
+        // Keep your existing JavaScript
+        // ...
         
-        function processPromptInput(input) {
-            // This will cause an error if input is null or undefined
-            return input.toLowerCase();
-        }
-        
-        function fetchNonExistentAPI() {
-            fetch('/api/non-existent')
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
-        }
-        
-        function loadScript(src) {
-            const script = document.createElement('script');
-            script.src = src;
-            script.onerror = function() {
-                console.error('Failed to load script:', src);
-            };
-            document.body.appendChild(script);
-        }
-        
-        function removeAllButtons() {
-            const buttons = document.querySelectorAll('button, a.button');
-            buttons.forEach(button => button.parentNode.removeChild(button));
-        }
-        
-        function createInfiniteNodes() {
-            function addNodes() {
-                const div = document.createElement('div');
-                div.innerHTML = Array(100).fill('<span>node</span>').join('');
-                document.body.appendChild(div);
-                setTimeout(addNodes, 10);
-            }
-            addNodes();
-        }
-        
-        function blockUIThread() {
-            const start = Date.now();
-            while (Date.now() - start < 5000) {
-                // Block for 5 seconds
-            }
-        }
-        
-        function createMemoryLeak() {
-            window.leakedArray = window.leakedArray || [];
-            function addToLeak() {
-                window.leakedArray.push(new Array(1000000).fill('memory leak'));
-                setTimeout(addToLeak, 100);
-            }
-            addToLeak();
-        }
-        
+        // Add problematic functions for testing
         function startInfiniteLoop() {
-            setTimeout(function() {
-                let counter = 0;
-                setInterval(function() {
-                    counter++;
-                    console.log('Infinite interval:', counter);
-                }, 10);
-            }, 1000);
-        }
-        
-        function loadHeavyResources() {
-            for (let i = 0; i < 10; i++) {
-                const img = new Image();
-                img.src = `https://picsum.photos/3000/2000?random=${i}`;
-                document.body.appendChild(img);
+            let i = 0;
+            while(true) {
+                i++;
+                // This will freeze the browser
             }
         }
         
-        function showOverlay() {
-            document.getElementById('overlay').style.display = 'block';
-        }
-        
-        function moveOffscreen() {
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(button => {
-                button.style.position = 'absolute';
-                button.style.left = '-9999px';
-            });
-        }
+        // Add a button that triggers a network error
+        document.addEventListener('DOMContentLoaded', function() {
+            const networkErrorBtn = document.createElement('button');
+            networkErrorBtn.textContent = 'Trigger Network Error';
+            networkErrorBtn.className = 'broken-button';
+            networkErrorBtn.onclick = function() {
+                fetch('/api/non-existent').then(r => r.json());
+            };
+            document.querySelector('.broken-button').parentNode.appendChild(networkErrorBtn);
+        });
     </script>
 </body>
 </html>
